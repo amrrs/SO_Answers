@@ -6,7 +6,7 @@ if(interactive()){
    
  UI =  shinyUI(fluidPage(theme = "bootstrap.css",
                     tags$script("setInterval(function(){
-                                $('.active').removeClass('active');//remove class active
+                                $('.nav').removeClass('active');//remove class active
 },1000);"),
                   (navbarPage("B Version",
                               position = c("fixed-top"),
