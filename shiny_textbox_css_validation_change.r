@@ -1,16 +1,17 @@
 require(shiny)
 require(shinyjs)
+#install.packages("shinyjs")
 
 ui = fluidPage( useShinyjs(),
-                inlineCSS(list(.red   = "background-color: red")),
-                               
+                inlineCSS(list('.lightpink' = "background-color: lightpink",'.red'   = "background-color: red", "textarea" = 'text-align: center', '#text3 ' = 'text-align: center', '.form-control' = 'padding:10px; text-align: center;')),
                 
-  fluidRow(
-    column(3,numericInput("count", "No. of boxes",value = 3, min = 2, max = 10),actionButton("View","view")
-    )
-  ),
-  fluidRow(uiOutput("inputGroup")),
-  fluidRow(column(3,wellPanel(textOutput("text3"))))
+                fluidRow(
+                  column(3,numericInput("count", "No. of boxes",value = 3, min = 2, max = 10),actionButton("View","view")
+                  )
+                ),
+                fluidRow(uiOutput("inputGroup")),
+                fluidRow(column(3,wellPanel(textOutput("text3"))))
+                
 )
 
 # takes in two arguments
@@ -25,7 +26,7 @@ server <- function(input, output, session) {
                                                              function(i) {
                                                                inputName <- paste("id", i, sep = "")
                                                                textInputRow <- function (inputId,value) {
-                                                                 textAreaInput(inputName,"", width = "200px", height = "43px", resize = "horizontal")
+                                                                 textAreaInput(inputName,"", width = "200px", height = "43px", resize = "horizontal" )
                                                                  #numericInput(inputName,"",1,0,100)
                                                                }
                                                                column(4,textInputRow(inputName, "")) })
@@ -66,11 +67,12 @@ server <- function(input, output, session) {
   
   output$text3 <- renderText({
     #getvalues()
-   # if(getvalues() > 100){
-  #    0
-      
-      
-   # }
+    # if(getvalues() > 100){
+    #    0
+    
+    
+    
+    # }
     #else(getvalues())
     
     getvalues()
@@ -78,13 +80,22 @@ server <- function(input, output, session) {
   })
   
   observeEvent(getvalues(), {
+    
     nn <- getvalues()
+    
     if(is.numeric(as.numeric(nn)) & !is.na(as.numeric(nn)) & nn == 100) {
-       
-      addClass("text3", 'red')
       
-    } else  { removeClass('text3','red')}
+      removeClass("text3", "red")
+      addClass("text3","lightpink")          
+      
+    } else  { 
+      
+      addClass("text3","red")
+      
+    }
+    
   })
+  
   
 }
 
