@@ -1,3 +1,5 @@
+#based on https://ryouready.wordpress.com/2013/11/20/sending-data-from-client-to-server-and-back-using-shiny/
+
 jscode <- "var language =  window.navigator.userLanguage || window.navigator.language;
 Shiny.onInputChange('mydata', language);
 console.log(language);"
