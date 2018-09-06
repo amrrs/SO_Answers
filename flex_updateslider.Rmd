@@ -1,0 +1,74 @@
+---
+title: "test"
+output: 
+  flexdashboard::flex_dashboard:
+  theme: bootstrap
+runtime: shiny
+---
+  
+  ```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+```
+
+```{r global, include=FALSE}
+set.seed(1)
+dat <- data.frame(age = sample(15:99, 100, replace=TRUE),
+                  y = runif(100))
+```
+
+Sidebar {.sidebar}
+=====================================
+  
+  ```{r}
+# age
+sliderInput("agerange", label = "Age", 
+            min = 15, 
+            max = 99, 
+            value = c(15, 99),
+            step=10)
+
+# age category
+selectInput("agecat", label = "Age Category", 
+            choices = list("All" = 1,
+                           "15-19" = 2, 
+                           "20-24" = 3), 
+            selected = 1)
+observeEvent(input$agecat,{
+  
+  range = c(15,99)
+  
+  if(input$agecat == 2) {
+    range = c(15,19)
+  } 
+  else if(input$agecat == 3) {
+    range = c(20,24)
+  }
+  else {
+    input$agecat
+  }
+  updateSliderInput(session, "agerange", 
+                    value = range,
+                    min = min(range),
+                    max = max(range),
+                    step = 1)
+})
+
+```
+
+Page 1
+=====================================
+  
+  Column 
+-----------------------------------------------------------------------
+  
+  ### Chart A
+  
+  ```{r}
+renderPlot({
+  dat %>%
+    filter(age >= input$agerange[1] & age <= input$agerange[2]) %>%
+    ggplot(., aes(y)) +
+    geom_histogram()
+})
+```
