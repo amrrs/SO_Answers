@@ -1,3 +1,4 @@
+
 library(shiny)
 library(tidyverse)
 library(DT)
@@ -28,6 +29,6 @@ shinyApp(
       Wrong = wrong$num,
       Skipped = skipped$num,
       ToGo = togo
-    )) %>% formatStyle("Right",color=styleEqual(7, "red")) ) 
+    ), options = list(dom = 't')) %>% formatStyle("Right",color=styleEqual(7, "red")) )  #only the table with options 
   }
 )
