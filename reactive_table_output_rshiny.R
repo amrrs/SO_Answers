@@ -2,6 +2,11 @@ library(shiny)
 library(data.table)
 library(rhandsontable)
 
+#answer references: https://stackoverflow.com/questions/33722757/update-handsontable-by-editing-table-and-or-eventreactive#33739317
+
+
+#question: https://stackoverflow.com/questions/52729853/user-input-in-datatable-used-for-recalculation-and-update-of-column-in-shiny
+
 DF = data.frame(num = 1:10, qty = rep(0,10), total = 1:10,
                 stringsAsFactors = FALSE)
 #DF = rbind(DF, c(0,0,0))
